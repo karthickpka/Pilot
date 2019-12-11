@@ -1,0 +1,10 @@
+<% if(messages.error)%>
+<%= messages.error%>
+<H1>Login Page</H1>
+<form action = '/homepage' method="POST" >
+<label>UserName</label>
+<input type="text" id='username' name='username'/>
+<label>Password</label>
+<input type="password" id='password' name='password'/>
+<input type="submit" value='Login'/>
+</form>
