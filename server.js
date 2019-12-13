@@ -33,32 +33,19 @@ const db=mongoose.connection
 db.on('error',error=>console.error(error));
 db.once('open',()=>console.log('DB connected successfully'))
 
-
-app.get('/', checkNotAuthenticated, (req, res) => res.render('index'))
-app.get('/homepage', checkAuthenticated, (req, res) => { res.render('./homepage/index', { username: req.user.username }) })//req.user will be set by passport
-app.post('/homepage', checkNotAuthenticated, passport.authenticate('local', {
+const auth = require('./checkauth')
+app.get('/', auth.checkNotAuthenticated, (req, res) => res.render('index'))
+app.get('/homepage', auth.checkAuthenticated, (req, res) => { res.render('./homepage/index', { username: req.user.username }) })//req.user will be set by passport
+app.post('/homepage', auth.checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/homepage',
     failureRedirect: '/',
     failureFlash: true
 }))
-app.get('/logout',
+app.get('/logout',auth.checkAuthenticated,
     (req, res) => {
         req.logOut()
         res.redirect('/')
     })
-
-//Only authenticated requests go to next page others go to launchlogin page
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    res.redirect('/');
-}
-//only non authenticated users should go to requested page - authenticated ones go to home page
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated())
-        return res.redirect('/homepage');
-    next();
-}
 
 app.listen(3000,console.log(`Server started on port 3000`))
 //IN branch
