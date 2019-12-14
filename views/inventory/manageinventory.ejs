@@ -1,0 +1,19 @@
+<%= locals.message ? message : '' %>
+<h2>Manage inventory</h2>
+
+<form action="/inventory/manage/insert" method="POST">
+    <label>Tik CheckBokForSpares</label>
+    <input id="spares" name="spares" type="checkbox" value="true"/><br/>
+    
+    <input id="count" name="count" type="text" placeholder="count" />
+    <input id="IMEI" name="IMEI" type="text" placeholder="enter IMEI"/>
+    <input id="model" name="model" type="text" placeholder="enter Model"/>
+    <input id="mrp" name="mrp" type="text" placeholder="enter MRP" />
+</br></br>
+    <button type="submit">Insert</button>
+    <button type="submit" formaction="/inventory/manage/update">Update</button>
+    <button type="submit" formaction="/inventory/manage/delete">Delete</button>
+</form>
+<form action="/inventory/manage/upload" method="POST">
+
+</form>

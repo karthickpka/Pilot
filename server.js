@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
 
 //Views
 const expressLayouts = require('express-ejs-layouts')
 app.use(expressLayouts)
 app.set('layout', 'layouts/layout')
 app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //Session Management
 const session = require('express-session')
@@ -46,6 +47,9 @@ app.get('/logout',auth.checkAuthenticated,
         req.logOut()
         res.redirect('/')
     })
+
+app.use('/inventory',require('./routes/inventroy'))//auth.checkAuthenticated,
+app.use('/bills',auth.checkAuthenticated,require('./routes/bills'))
 
 app.listen(3000,console.log(`Server started on port 3000`))
 //IN branch

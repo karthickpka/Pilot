@@ -1,0 +1,17 @@
+<h2> View Inventory</h2>
+<form action="/inventory/view/search" method="POST">
+    <label>Tik CheckBokForSpares</label>
+    <input id="spares" name="spares" type="checkbox" value="true" /><br />
+
+    <input id="count" name="count" type="text" placeholder="count" />
+    <input id="IMEI" name="IMEI" type="text" placeholder="enter IMEI" />
+    <input id="model" name="model" type="text" placeholder="enter Model" />
+    <input id="mrp" name="mrp" type="text" placeholder="enter MRP" />
+</br></br>
+    <button type="submit">Search</button>
+</form>
+
+<%=// result = locals.result ? result : '' %>
+<% for(var i=0;i<result.length;i++){%>
+<li><%=result[i].IMEI%> </li>
+<%}%>

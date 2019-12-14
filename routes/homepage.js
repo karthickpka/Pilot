@@ -12,3 +12,5 @@ router.post('/homepage', auth.checkNotAuthenticated, passport.authenticate('loca
 }))
 }
 // = router;
+
+//NOT USED YET 
