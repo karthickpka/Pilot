@@ -1,1 +1,54 @@
-View Bill Page
+<%- include('../partials/loginlayout')%>
+
+<h2> View Bills</h2>
+
+<form action="/bills/view/search" method="POST">
+    <%- include('../partials/viewitemtypeselect')%>
+    <input id="billnumber" name="billnumber" type="text" placeholder="Enter BillNumber" />
+    </br><label>From Date:</label>
+    <input id="fromdate" name="fromdate" type="date" />
+    </br>
+    <label>To Date:</label>
+    <input id="todate" name="todate" type="date" />
+    </br>
+    <button type="submit">Search</button>
+</form></br></br>
+
+<%=// result = locals.result ? result : 'NoSearchResult' %>
+<label>Total Sold Value: Rs</label>
+<label id='total'>
+    <%if(typeof(result) != 'undefined'){total=0; for(var i=0; i < result.length; i++) total+=result[i].sellingprice; %>
+    <label>
+        <%=total%>
+    </label>
+    <%} %>
+</label>
+<table class="table">
+    <tr>
+        <td>BillNo</td>
+        <td>IMEI</td>
+        <td>Model</td>
+        <td>MRP</td>
+        <td>Discount</td>
+        <td>SellingPrice</td>
+        <td>Shop</td>
+        <td>User</td>
+    </tr>
+    <%if(typeof(result) == 'undefined');else{for(var i=0,total=0; i < result.length; i++) {total+=result[i].sellingprice; %>
+    <tr>
+        <td><%=result[i].billnumber%></td>
+        <td><%=result[i].IMEI%></td>
+        <td><%=result[i].model%></td>
+        <td><%=result[i].mrp%></td>
+        <td><%if(result[i].type!='ec'){%>
+            <%=result[i].mrp - result[i].sellingprice%>
+            <%}%>        
+        </td>
+        <td><%=result[i].sellingprice%></td>
+        <td><%=result[i].shop%></td>
+        <td><%=result[i].user%></td>
+    </tr>
+
+    <%}}%>
+    <script>document.getElementById('total').innerHTML = result[0].sellingprice;</script>
+</table>

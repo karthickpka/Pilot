@@ -1,0 +1,22 @@
+<input type="radio" name="type" value="mobile" checked onchange="
+javascript:
+document.getElementById('IMEI').hidden=!this.checked;
+document.getElementById('count').hidden=this.checked;
+document.getElementById('model').hidden=!this.checked;
+"> Mobile
+<input type="radio" name="type" value="spare" onchange="
+javascript:
+document.getElementById('IMEI').hidden=this.checked;
+document.getElementById('count').hidden=!this.checked;
+document.getElementById('model').hidden=!this.checked;
+"> Spare
+<input type="radio" name="type" value="ec"onchange="
+javascript:
+document.getElementById('IMEI').hidden=!this.checked;
+document.getElementById('count').hidden=this.checked;
+document.getElementById('model').hidden=this.checked;
+"> EC<br /><br />
+
+<input id="IMEI" name="IMEI" type="text" placeholder="Enter IMEI" />
+<input id="model" name="model" type="text" placeholder="Enter Model" />
+<input id="count" name="count" type="text" placeholder="Enter Count" hidden=true />

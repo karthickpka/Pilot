@@ -29,27 +29,30 @@ app.use(flash())
 
 //Model
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/mydb',{useNewUrlParser:true,useUnifiedTopology: true})
-const db=mongoose.connection
-db.on('error',error=>console.error(error));
-db.once('open',()=>console.log('DB connected successfully'))
+mongoose.connect('mongodb://localhost/mydb', { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
+db.on('error', error => console.error(error));
+db.once('open', () => console.log('DB connected successfully'))
 
 const auth = require('./checkauth')
 app.get('/', auth.checkNotAuthenticated, (req, res) => res.render('index'))
-app.get('/homepage', auth.checkAuthenticated, (req, res) => { res.render('./homepage/index', { username: req.user.username }) })//req.user will be set by passport
+app.get('/homepage', auth.checkAuthenticated,
+    (req, res) => {
+        res.render('./homepage/index', { username: req.user.username, shop: req.user.shop })
+    })//req.user will be set by passport
 app.post('/homepage', auth.checkNotAuthenticated, passport.authenticate('local', {
     successRedirect: '/homepage',
     failureRedirect: '/',
     failureFlash: true
 }))
-app.get('/logout',auth.checkAuthenticated,
+app.get('/logout', auth.checkAuthenticated,
     (req, res) => {
         req.logOut()
         res.redirect('/')
     })
 
-app.use('/inventory',require('./routes/inventroy'))//auth.checkAuthenticated,
-app.use('/bills',auth.checkAuthenticated,require('./routes/bills'))
+app.use('/inventory', auth.checkAuthenticated, require('./routes/inventroy'))//auth.checkAuthenticated,
+app.use('/bills', auth.checkAuthenticated, require('./routes/bills'))
 
-app.listen(3000,console.log(`Server started on port 3000`))
+app.listen(3000, console.log(`Server started on port 3000`))
 //IN branch

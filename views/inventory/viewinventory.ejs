@@ -1,17 +1,38 @@
-<h2> View Inventory</h2>
-<form action="/inventory/view/search" method="POST">
-    <label>Tik CheckBokForSpares</label>
-    <input id="spares" name="spares" type="checkbox" value="true" /><br />
+<%- include('../partials/loginlayout')%>
 
-    <input id="count" name="count" type="text" placeholder="count" />
-    <input id="IMEI" name="IMEI" type="text" placeholder="enter IMEI" />
-    <input id="model" name="model" type="text" placeholder="enter Model" />
-    <input id="mrp" name="mrp" type="text" placeholder="enter MRP" />
-</br></br>
+<h2> View Inventory</h2>
+
+<form action="/inventory/view/search" method="POST">
+    
+    <%- include('../partials/viewitemtypeselect')%>
+    </br><label>From Date:</label>
+    <input id="fromdate" name="fromdate" type="date" />
+    </br>
+    <label>To Date:</label>
+    <input id="todate" name="todate" type="date" />
+    </br>
     <button type="submit">Search</button>
 </form>
+</br>
 
 <%=// result = locals.result ? result : '' %>
-<% for(var i=0;i<result.length;i++){%>
-<li><%=result[i].IMEI%> </li>
-<%}%>
+<table class="table">
+    <tr>
+        <td>IMEI</td>
+        <td>Model</td>
+        <td>MRP</td>
+        <td>Count</td>
+        <td>Shop</td>
+        <td>User</td>
+    </tr>
+    <%if(typeof(result) == 'undefined');else{for(var i=0; i < result.length; i++) { %>
+    <tr>
+        <td><%=result[i].IMEI%></td>
+        <td><%=result[i].model%></td>
+        <td><%=result[i].mrp%></td>
+        <td><%=result[i].count%></td>
+        <td><%=result[i].shop%></td>
+        <td><%=result[i].user%></td>
+    </tr>
+    <%}}%>
+</table>
