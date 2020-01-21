@@ -1,6 +1,6 @@
 <%- include('../partials/loginlayout')%>
  
-<h2>Manage inventory</h2>
+<h3>Manage inventory</h3>
 
 <form action="/inventory/manage/insert" method="POST">
     <%- include('../partials/itemtypeselect')%>
@@ -8,7 +8,7 @@
     <input id="mrp" name="mrp" type="text" placeholder="Enter MRP" required />
     </br></br>
     <button type="submit">Insert</button>
-    <button type="submit" formaction="/inventory/manage/update">Update</button>
+    <!--<button type="submit" formaction="/inventory/manage/update">Update</button>-->
     <button type="submit" formaction="/inventory/manage/delete">Delete</button>
 </form>
 <form action="/inventory/manage/upload" method="POST">

@@ -1,23 +1,28 @@
 <%- include('../partials/loginlayout')%>
 
-<h2> View Inventory</h2>
-
+<h3> View Inventory</h3>
 <form action="/inventory/view/search" method="POST">
-    
+
     <%- include('../partials/viewitemtypeselect')%>
-    </br><label>From Date:</label>
-    <input id="fromdate" name="fromdate" type="date" />
-    </br>
-    <label>To Date:</label>
-    <input id="todate" name="todate" type="date" />
+    </br></br>
+    <table>
+        <tr>
+            <td><label>From Date:</label></td>
+            <td><input id="fromdate" name="fromdate" type="date" /></td>
+        </tr>
+        <tr>
+            <td><label>To Date:</label></td>
+            <td><input id="todate" name="todate" type="date" /></td>
+        </tr>
+    </table>
     </br>
     <button type="submit">Search</button>
+    </br>
+    <%- include('../partials/searchpagination')%>
 </form>
-</br>
-
 <%=// result = locals.result ? result : '' %>
-<table class="table">
-    <tr>
+<table class="table" >
+    <tr style="font-weight:bold">
         <td>IMEI</td>
         <td>Model</td>
         <td>MRP</td>

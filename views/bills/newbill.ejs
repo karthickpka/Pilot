@@ -1,29 +1,51 @@
 <%- include('../partials/loginlayout')%>
 
-<h2>New bill page</h2>
+<h3>New bill page</h3>
 <form action='/bills/newbill' method="POST">
-    <%- include('../partials/itemtypeselect')%>
-    <script>
-        document.getElementById("count").disabled = true;
-    </script>
+    <input type="radio" name="type" value="mobile" checked onchange="
+        javascript:
+        document.getElementById('IMEI').hidden=!this.checked;
+        document.getElementById('model').hidden=this.checked;
+        "> Mobile
+    <input type="radio" name="type" value="spare" onchange="
+        javascript:
+        document.getElementById('IMEI').hidden=this.checked;
+        document.getElementById('model').hidden=!this.checked;
+        "> Spare
+    <input type="radio" name="type" value="ec" onchange="
+        javascript:
+        document.getElementById('IMEI').hidden=!this.checked;
+        document.getElementById('model').hidden=this.checked;
+        "> EC<br /><br />
+    <input id="IMEI" name="IMEI" type="text" placeholder="Enter IMEI" />
+    <input id="model" name="model" type="text" placeholder="Enter Model" hidden/>
     <button>AddToBill</button>
 </form>
 
 <%= messages.length?messages:''  %>
 
 <form action="/bills/sell" method="POST"></br>
-    <label>BillNumber:</label>
-    <input id="billnum" name="billnum" value=<%=billnumber%> disabled></br>
-    <label>Enter Cutomer Name</label><input id="custname" name="custname" type="text" placeholder="Enter Name" /></br>
-    <label>Enter Cutomer Contact</label><input id="custcontact" name="custcontact" type="text"
-        placeholder="Enter Contact" /></br>
-    <%=// result = locals.result ? result : '' %>
-    <table class="table">
+    <table>
         <tr>
+            <td><label>BillNumber</label></td>
+            <td><input id="billnum" name="billnum" value=<%=billnumber%> disabled></td>
+        </tr>
+        <tr>
+            <td><label>Enter Cutomer Name</label></td>
+            <td><input id="custname" name="custname" type="text" placeholder="Enter Name" /></td>
+        </tr>
+        <tr>
+            <td><label>Enter Cutomer Contact</label></td>
+            <td><input id="custcontact" name="custcontact" type="text" placeholder="Enter Contact" /></td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr style="font-weight:bold">
             <td>IMEI</td>
             <td>Model</td>
             <td>MRP</td>
-            <td>Discount</td>
+           <!-- <td>Discount</td>-->
             <td>SellingPrice</td>
         </tr>
         <%//if(typeof(result[0])== null) result.length=0;%>
@@ -32,7 +54,7 @@
             <td><input name=<%='IMEI'+i %> id=<%='IMEI'+i %> type='text' value=<%=result[i].IMEI%> /></td>
             <td><%=result[i].model%></td>
             <td><%=result[i].mrp%></td>
-            <td><input name='discount' id='discount' type='text' value=<%=result[i].mrp%> /></td>
+            <!--<td><input name='discount' id='discount' type='text' value=<%=//result[i].mrp%> /></td>-->
             <td><input name='sellingprice' type='text' required /></td>
         </tr>
         <% }} %>

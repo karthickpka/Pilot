@@ -6,8 +6,8 @@ const inventoryModel = require('../models/inventory')
 
 router.get('/view', (req, res) => res.render('./inventory/viewinventory'))
 router.get('/', (req, res) => res.render('./inventory/viewinventory'))
-router.get('/view/search', (req, res) => res.render('./inventory/viewinventory'))
 
+router.get('/view/search', (req, res) => res.render('./inventory/viewinventory'))
 router.post('/view/search',
     (req, res) => {
         var query = {}
@@ -74,6 +74,9 @@ router.post('/manage/update', (req, res) => {
 })
 
 router.post('/manage/delete', (req, res) => {
+    //console.log(req.user.username);
+    if(req.user.username!="admin") res.render('./inventory/manageinventory', { message: 'You do not have Access to perform this action' })
+    else{
     var query = {}
     req.body.IMEI ? query.IMEI = req.body.IMEI : query.model = req.body.model
     inventoryModel.findOneAndDelete(query,
@@ -81,6 +84,7 @@ router.post('/manage/delete', (req, res) => {
             if (err) res.send(err)
             else res.render('./inventory/manageinventory', { message: 'Deleted' })
         })
+    }
 })
 
 module.exports = router;

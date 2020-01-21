@@ -1,20 +1,26 @@
 <%- include('../partials/loginlayout')%>
 
-<h2> View Bills</h2>
+<h3> View Bills</h3>
 
 <form action="/bills/view/search" method="POST">
     <%- include('../partials/viewitemtypeselect')%>
     <input id="billnumber" name="billnumber" type="text" placeholder="Enter BillNumber" />
-    </br><label>From Date:</label>
-    <input id="fromdate" name="fromdate" type="date" />
-    </br>
-    <label>To Date:</label>
-    <input id="todate" name="todate" type="date" />
-    </br>
+    </br></br>
+    <table>
+        <tr>
+            <td><label>From Date:</label></td>
+            <td><input id="fromdate" name="fromdate" type="date" /></td>
+        </tr>
+        <tr>
+            <td><label>To Date:</label></td>
+            <td><input id="todate" name="todate" type="date" /></td>
+        </tr>
+    </table></br>
     <button type="submit">Search</button>
-</form></br></br>
+</form></br>
 
 <%=// result = locals.result ? result : 'NoSearchResult' %>
+<%- include('../partials/searchpagination')%>
 <label>Total Sold Value: Rs</label>
 <label id='total'>
     <%if(typeof(result) != 'undefined'){total=0; for(var i=0; i < result.length; i++) total+=result[i].sellingprice; %>
@@ -24,7 +30,7 @@
     <%} %>
 </label>
 <table class="table">
-    <tr>
+    <tr style="font-weight:bold">
         <td>BillNo</td>
         <td>IMEI</td>
         <td>Model</td>

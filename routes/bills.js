@@ -6,19 +6,20 @@ const inventoryModel = require('../models/inventory')
 router.get('/view', (req, res) => res.render('./bills/viewbills'))
 router.get('/', (req, res) => res.render('./bills/viewbills'))
 
+router.get('/view/search', (req, res) => { res.redirect('/') })
 router.post('/view/search',
     (req, res) => {
         var query = {}
-        if(req.user.shop!='All') query.shop = req.user.shop;
-        if(req.body.type!='All') if (req.body.type) query.type = req.body.type;
+        if (req.user.shop != 'All') query.shop = req.user.shop;
+        if (req.body.type != 'All') if (req.body.type) query.type = req.body.type;
         if (req.body.billnumber) query.billnumber = req.body.billnumber;
         if (req.body.IMEI) query.IMEI = req.body.IMEI;
         if (req.body.model) query.model = req.body.model;
         if (req.body.fromdate) {
-            query.datemodified = {};
-            query.datemodified.$gte = new Date(req.body.fromdate).setHours(00, 00, 00)
+            query.billdate = {};
+            query.billdate.$gte = new Date(req.body.fromdate).setHours(00, 00, 00)
         }
-        if (req.body.todate) query.datemodified.$lte = new Date(req.body.todate).setHours(23, 59, 59)
+        if (req.body.todate & req.body.fromdate) query.billdate.$lte = new Date(req.body.todate).setHours(23, 59, 59)
 
         billsModel.find(query, (err, doc) => {
             if (err) res.send(err)
@@ -27,10 +28,15 @@ router.post('/view/search',
         })
     })
 
+router.get('/newbill', (req, res) => {
+    billsModel.countDocuments({}, function (err, count) {
+        res.render('./bills/newbill', { billnumber: count + 1 })
+    })
+})
 router.post('/newbill',
     (req, res) => {
         let query = {}
-        if(req.user.shop!='All') query.shop = req.user.shop;
+        if (req.user.shop != 'All') query.shop = req.user.shop;
         if (req.body.IMEI) query.IMEI = req.body.IMEI;
         if (req.body.model) query.model = req.body.model;
         query.type = req.body.type;
@@ -49,11 +55,6 @@ router.post('/newbill',
     })
 
 
-router.get('/newbill', (req, res) => {
-    billsModel.countDocuments({}, function (err, count) {
-        res.render('./bills/newbill', { billnumber: count + 1 })
-    })
-})
 
 router.post('/sell', (req, res) => {
     //get count here
@@ -62,7 +63,7 @@ router.post('/sell', (req, res) => {
     let query = {}
     let newBillNo = 0;
     query.IMEI = req.body.IMEI0;
-    if(req.user.shop!='All') query.shop = req.user.shop;
+    if (req.user.shop != 'All') query.shop = req.user.shop;
 
     let getBillNumber = new Promise(function (resolve, reject) {
         billsModel.countDocuments({}, function (err, count) {
