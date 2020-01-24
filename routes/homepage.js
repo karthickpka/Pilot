@@ -10,7 +10,4 @@ router.post('/homepage', auth.checkNotAuthenticated, passport.authenticate('loca
     failureRedirect: '/',
     failureFlash: true
 }))
-}
-// = router;
-
-//NOT USED YET 
+} 

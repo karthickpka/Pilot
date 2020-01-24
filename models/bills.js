@@ -14,5 +14,3 @@ const billsSchema = new mongoose.Schema({
 })
 const bills = mongoose.model('bills', billsSchema);
 module.exports = bills;
-
-//NOT USED YEt

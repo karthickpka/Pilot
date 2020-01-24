@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const auth = require('../checkauth')
 const inventoryModel = require('../models/inventory')
 
 
@@ -10,6 +9,7 @@ router.get('/', (req, res) => res.render('./inventory/viewinventory'))
 router.get('/view/search', (req, res) => res.render('./inventory/viewinventory'))
 router.post('/view/search',
     (req, res) => {
+        
         var query = {}
         if(req.user.shop!='All') query.shop = req.user.shop;
         if(req.body.type!='All' && req.body.type) query.type = req.body.type;
@@ -32,7 +32,6 @@ router.post('/view/search',
 
 router.get('/manage', (req, res) => res.render('./inventory/manageinventory'))
 router.get('/manage/insert', (req, res) => res.render('./inventory/manageinventory'))
-
 router.post('/manage/insert', (req, res) => {
     var newRecord = new inventoryModel();
     newRecord.type = req.body.type;
@@ -74,7 +73,6 @@ router.post('/manage/update', (req, res) => {
 })
 
 router.post('/manage/delete', (req, res) => {
-    //console.log(req.user.username);
     if(req.user.username!="admin") res.render('./inventory/manageinventory', { message: 'You do not have Access to perform this action' })
     else{
     var query = {}

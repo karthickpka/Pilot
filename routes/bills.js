@@ -5,8 +5,8 @@ const inventoryModel = require('../models/inventory')
 
 router.get('/view', (req, res) => res.render('./bills/viewbills'))
 router.get('/', (req, res) => res.render('./bills/viewbills'))
-
 router.get('/view/search', (req, res) => { res.redirect('/') })
+
 router.post('/view/search',
     (req, res) => {
         var query = {}
@@ -40,11 +40,8 @@ router.post('/newbill',
         if (req.body.IMEI) query.IMEI = req.body.IMEI;
         if (req.body.model) query.model = req.body.model;
         query.type = req.body.type;
-
-        //console.log(query)
-        //inventoryModel.updateOne(query, { count: 1 },(err)=>{console.log(err)});
         inventoryModel.find(query, (err, doc) => {
-            if (err) res.send(err)
+            if (err) res.send(err);
             else
                 billsModel.countDocuments({}, function (err, count) {
                     if (doc.length == 0) res.render('./bills/newbill', { billnumber: count + 1, messages: 'No Product with given Name in the Shop' });
@@ -54,12 +51,9 @@ router.post('/newbill',
         })
     })
 
-
-
 router.post('/sell', (req, res) => {
-    //get count here
     if (typeof (req.body.IMEI0) == 'undefined')
-        res.redirect('./newbill');//, { billnumber: newBillNo, messages: JSON.stringify(err) })
+        res.redirect('./newbill');
     let query = {}
     let newBillNo = 0;
     query.IMEI = req.body.IMEI0;
@@ -70,11 +64,8 @@ router.post('/sell', (req, res) => {
             if (err) {
                 reject(err);
             } else {
-                //setTimeout(() => {
-                //  console.log('before');
                 newBillNo = count + 1;
                 resolve(count);
-                //}, 3000);
             }
         })
     });
@@ -88,17 +79,13 @@ router.post('/sell', (req, res) => {
         })
     })
 
-
-
     getBillNumber.then((count) => {
         getInventoryRecord.then((doc) => {
             reduceCount = 1;
             if (doc.type == "ec") reduceCount = req.body.sellingprice;
-
-            inventoryModel.updateOne(query, { count: doc.count - reduceCount }, (err) => {//doc.count - 1
-                if (err) console.log(err);// res.render('./bills/newbill', { billnumber: 1 })
+            inventoryModel.updateOne(query, { count: doc.count - reduceCount }, (err) => {
+                if (err) console.log(err);
             })
-            //Insert Bill Here
             let newRecord = new billsModel();
             newRecord.billnumber = newBillNo;
             newRecord.type = doc.type;
@@ -112,7 +99,6 @@ router.post('/sell', (req, res) => {
             newRecord.contactnum = req.body.contactnum;
             newRecord.save((err, doc) => {
                 if (err) {
-                    //console.log(err)
                     res.render('./bills/newbill', { billnumber: newBillNo, messages: JSON.stringify(err) })
                 }
                 else {

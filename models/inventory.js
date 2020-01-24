@@ -11,5 +11,3 @@ const inventorySchema = new mongoose.Schema({
 })
 const inventory = mongoose.model('inventories', inventorySchema);
 module.exports = inventory;
-
-//NOT USED YEt

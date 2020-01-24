@@ -48,7 +48,6 @@
            <!-- <td>Discount</td>-->
             <td>SellingPrice</td>
         </tr>
-        <%//if(typeof(result[0])== null) result.length=0;%>
         <%if(typeof(result) == 'undefined');else{for(var i=0; i < result.length; i++) { %>
         <tr>
             <td><input name=<%='IMEI'+i %> id=<%='IMEI'+i %> type='text' value=<%=result[i].IMEI%> /></td>
