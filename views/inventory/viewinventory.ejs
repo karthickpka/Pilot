@@ -1,7 +1,7 @@
 <%- include('../partials/loginlayout')%>
 
 <h3> View Inventory</h3>
-<form action="/inventory/view/search" method="POST">
+<form id='searchform' action="/inventory/view/search" method="POST">
 
     <%- include('../partials/viewitemtypeselect')%>
     </br></br>
@@ -16,9 +16,10 @@
         </tr>
     </table>
     </br>
-    <button type="submit">Search</button>
-    </br>
     <%- include('../partials/searchpagination')%>
+    <button id='btnsubmit' name='btnsubmit' type="submit">Search</button>
+    </br>
+
 </form>
 <table class="table" >
     <tr style="font-weight:bold">

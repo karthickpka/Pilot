@@ -97,6 +97,7 @@ router.post('/sell', (req, res) => {
             newRecord.user = req.user.username;
             newRecord.customer = req.body.customer;
             newRecord.contactnum = req.body.contactnum;
+            newRecord.billdate = new Date();
             newRecord.save((err, doc) => {
                 if (err) {
                     res.render('./bills/newbill', { billnumber: newBillNo, messages: JSON.stringify(err) })

@@ -1,8 +1,12 @@
+<%if(typeof(totalpage)=='undefined') totalpage=0;%>
+<%if(typeof(pageno)=='undefined') pageno=1;%>
+<%if(totalpage>0){%>
 <table width="100%" ;>
     <tr>
-        <td><label>Search Result</label></td>
+        <td><label><b>Search Result</b></label></td>
         <td>
-            <label>Show <select id='resultcount'>
+            <%if(typeof(pagelimit)=='undefined') pagelimit=10;%>
+            <label>Show <select id='limit' name='limit' value=<%=pagelimit%>>
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -11,10 +15,18 @@
         </td>
         <td>
             <ul class="pagination">
-                <li><a href="#">Previous</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">Next</a></li>
+                <li><a id='previous' href="#"
+                        onclick="document.getElementById('pageno').value=Number(document.getElementById('pageno').value)-1;document.forms['searchform'].submit();">Previous</a>
+                </li>
+                <input name='pageno' id='pageno' type="number" value=<%=pageno%>>
+                <li><a id='next' href="#"
+                        onclick="document.getElementById('pageno').value=Number(document.getElementById('pageno').value)+1;document.forms['searchform'].submit();">Next</a>
+                </li>
             </ul>
+        </td>
+        <td>
+            <label>Total Pages:<%=totalpage%></label>
         </td>
     </tr>
 </table>
+<%}%>
