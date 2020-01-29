@@ -11,7 +11,7 @@ router.post('/view/search',
     (req, res) => {
 
         var query = {}
-        if (req.user.shop != 'All') query.shop = req.user.shop;
+        if (req.user.shop != 'All') query.shop = req.user.shop; else query.shop = req.body.shop;
         if (req.body.type != 'All' && req.body.type) query.type = req.body.type;
         if (req.body.IMEI) query.IMEI = req.body.IMEI;
         if (req.body.model) query.model = req.body.model;

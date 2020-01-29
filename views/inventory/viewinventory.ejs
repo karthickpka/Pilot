@@ -1,9 +1,10 @@
 <%- include('../partials/loginlayout')%>
 
 <h3> View Inventory</h3>
-<form id='searchform' action="/inventory/view/search" method="POST">
+<form class='form' id='searchform' action="/inventory/view/search" method="POST">
 
     <%- include('../partials/viewitemtypeselect')%>
+       
     </br></br>
     <table>
         <tr>
@@ -21,7 +22,7 @@
     </br>
 
 </form>
-<table class="table" >
+<table class="table">
     <tr style="font-weight:bold">
         <td>IMEI</td>
         <td>Model</td>

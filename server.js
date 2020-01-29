@@ -38,6 +38,8 @@ const auth = require('./checkauth')
 app.get('/', auth.checkNotAuthenticated, (req, res) => res.render('index'))
 app.get('/homepage', auth.checkAuthenticated,
     (req, res) => {
+        //for EJs
+        app.locals.shop = req.user.shop;
         res.render('./homepage/index', { username: req.user.username, shop: req.user.shop })
     })//req.user will be set by passport
 app.post('/homepage', auth.checkNotAuthenticated, passport.authenticate('local', {

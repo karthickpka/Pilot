@@ -48,9 +48,9 @@
            <!-- <td>Discount</td>-->
             <td>SellingPrice</td>
         </tr>
-        <%if(typeof(result) == 'undefined');else{for(var i=0; i < result.length; i++) { %>
+        <%if(typeof(result) == 'undefined');else{for(var i=0; i < result.length; i++) {%>
         <tr>
-            <td><input name=<%='IMEI'+i %> id=<%='IMEI'+i %> type='text' value=<%=result[i].IMEI%> /></td>
+            <td><input name=<%='IMEI'+i %> id=<%='IMEI'+i %> type='text' value="<%=result[i].IMEI%>" /></td>
             <td><%=result[i].model%></td>
             <td><%=result[i].mrp%></td>
             <!--<td><input name='discount' id='discount' type='text' value=<%=//result[i].mrp%> /></td>-->

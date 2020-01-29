@@ -9,7 +9,7 @@ javascript:
 document.getElementById('IMEI').hidden=this.checked;
 document.getElementById('model').hidden=!this.checked;
 "> Spare
-<input type="radio" name="type" value="ec"onchange="
+<input type="radio" name="type" value="ec" onchange="
 javascript:
 document.getElementById('IMEI').hidden=!this.checked;
 document.getElementById('model').hidden=this.checked;
@@ -17,3 +17,13 @@ document.getElementById('model').hidden=this.checked;
 
 <input id="IMEI" name="IMEI" type="text" placeholder="Enter IMEI" />
 <input id="model" name="model" type="text" placeholder="Enter Model" />
+
+<%if(shop == 'All'){ //temp code%>
+<select name='shop' id='shop'>
+    <option value="All">All</option>
+    <option value="MIUTG">MIUTG</option>
+    <option value="MIPO">MIPO</option>
+    <option value="MMCELL">MMCELL</option>
+    <option value="MMCELLNEW">MMCELLNEW</option>
+</select>
+<%}%>
