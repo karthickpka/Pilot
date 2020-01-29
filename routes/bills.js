@@ -10,7 +10,7 @@ router.get('/view/search', (req, res) => { res.redirect('/') })
 router.post('/view/search',
     (req, res) => {
         var query = {}
-        if (req.user.shop != 'All') query.shop = req.user.shop; else query.shop = req.body.shop;
+        if (req.user.shop != 'All') query.shop = req.user.shop; else { if (req.body.shop != 'All') query.shop = req.body.shop; }
         if (req.body.type != 'All') if (req.body.type) query.type = req.body.type;
         if (req.body.billnumber) query.billnumber = req.body.billnumber;
         if (req.body.IMEI) query.IMEI = req.body.IMEI;
